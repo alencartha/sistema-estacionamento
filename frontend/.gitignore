@@ -1,0 +1,50 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Compiled output
+/dist/
+/tmp/
+/out-tsc/
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+/pnpm-debug.log
+
+# Testing
+/coverage/
+
+# Environment variables
+.env
+.env.prod
+.env.local
+
+# IDE-specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Compiled TypeScript
+*.js
+*.js.map
+*.d.ts
+
+# Compiled CSS
+*.css
+
+# Compiled SASS/SCSS
+*.sass
+*.scss
+
+# Editor backups
+*~
+*.swp
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
