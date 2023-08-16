@@ -2,11 +2,11 @@ const CarroService = require('../services/CarroService');
 
 module.exports = {
 
-    buscarTodos: async (req, res) => {
+    buscarTodosCarros: async (req, res) => {
 
         let json = { error: '', result: [] };
 
-        let carros = await CarroService.buscarTodos();
+        let carros = await CarroService.buscarTodosCarros();
 
         for (let i in carros) {
             json.result.push({
@@ -21,12 +21,12 @@ module.exports = {
     },
 
 
-    buscarUm: async (req, res) => {
+    buscarUmCarro: async (req, res) => {
 
         let json = { error: '', result: {} };
 
         let codigo = req.params.codigo;
-        let carro = await CarroService.buscarUm(codigo);
+        let carro = await CarroService.buscarUmCarro(codigo);
 
         if (carro) {
             json.result = carro;
@@ -57,6 +57,42 @@ module.exports = {
         }
 
         res.json(json);
+    },
+
+    alterarCarro: async (req, res) => {
+
+        let json = { error: '', result: {} };
+
+        let codigo = req.params.codigo;
+        let modelo = req.body.modelo;
+        let placa = req.body.placa;
+        let cor = req.body.cor;
+
+
+        if (codigo && modelo && placa && cor) {
+            await CarroService.alterarCarro(codigo, modelo, placa, cor);
+
+            json.result = {
+                codigo,
+                modelo,
+                placa,
+                cor
+            }
+        } else {
+            json.error = 'Campos não enviados'
+        }
+
+        res.json(json)
+
+    },
+
+
+    deletarCarro: async (req, res) => {
+        let json = { error: '', result: {} };
+
+        await CarroService.deletarCarro(req.params.codigo);
+
+        res.json(json)
     }
 
 

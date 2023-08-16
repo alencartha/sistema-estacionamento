@@ -2,7 +2,7 @@ const db = require('../db');
 
 module.exports = {
 
-    buscarTodos: () => {
+    buscarTodosCarros: () => {
 
         return new Promise((aceito, rejeitado) => {
 
@@ -13,7 +13,7 @@ module.exports = {
         });
     },
 
-    buscarUm: (codigo) => {
+    buscarUmCarro: (codigo) => {
 
         return new Promise((aceito, rejeitado) => {
 
@@ -45,6 +45,34 @@ module.exports = {
 
         });
     },
+
+
+    alterarCarro: (codigo, modelo, placa, cor) => {
+
+        return new Promise((aceito, rejeitado) => {
+
+            db.query('UPDATE carros SET modelo = ?, placa = ?, cor = ? WHERE codigo = ?',
+                [modelo, placa, cor, codigo],
+                (error, results) => {
+
+                    if (error) { rejeitado(error); return; };
+                    aceito(results);
+                })
+
+        });
+    },
+
+    deletarCarro: (codigo) => {
+
+        return new Promise((aceito, rejeitado) => {
+
+            db.query('DELETE FROM carros WHERE codigo = ?', [codigo], (error, results) => {
+                if (error) { rejeitado(error); return; }
+                aceito(results)
+            });
+        });
+    }
+
 
 
 
