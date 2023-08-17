@@ -51,7 +51,7 @@ module.exports = {
 
         return new Promise((aceito, rejeitado) => {
 
-            db.query('UPDATE veiculos SET tipo= ?, modelo = ?, placa = ?, cor = ? WHERE codigo = ?',
+            db.query('UPDATE veiculos SET tipo = ?, modelo = ?, placa = ?, cor = ? WHERE codigo = ?',
                 [tipo, modelo, placa, cor, codigo],
                 (error, results) => {
 
