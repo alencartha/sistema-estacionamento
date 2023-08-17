@@ -1,19 +1,21 @@
-const CarroService = require('../services/CarroService');
+const VeiculoService = require('../services/VeiculoService');
+
 
 module.exports = {
 
-    buscarTodosCarros: async (req, res) => {
+    buscarTodosVeiculos: async (req, res) => {
 
         let json = { error: '', result: [] };
 
-        let carros = await CarroService.buscarTodosCarros();
+        let veiculos = await VeiculoService.buscarTodosVeiculos();
 
-        for (let i in carros) {
+        for (let i in veiculos) {
             json.result.push({
-                codigo: carros[i].codigo,
-                modelo: carros[i].modelo,
-                cor: carros[i].cor,
-                placa: carros[i].placa
+                codigo: veiculos[i].codigo,
+                tipo: veiculos[i].tipo,
+                modelo: veiculos[i].modelo,
+                cor: veiculos[i].cor,
+                placa: veiculos[i].placa
             })
         }
 
@@ -21,33 +23,35 @@ module.exports = {
     },
 
 
-    buscarUmCarro: async (req, res) => {
+    buscarUmVeiculo: async (req, res) => {
 
         let json = { error: '', result: {} };
 
         let codigo = req.params.codigo;
-        let carro = await CarroService.buscarUmCarro(codigo);
+        let veiculo = await VeiculoService.buscarUmVeiculo(codigo);
 
-        if (carro) {
-            json.result = carro;
+        if (veiculo) {
+            json.result = veiculo;
         }
 
         res.json(json);
     },
 
 
-    cadastrarCarro: async (req, res) => {
+    cadastrarVeiculo: async (req, res) => {
 
         let json = { error: '', result: {} };
 
+        let tipo = req.body.tipo;
         let modelo = req.body.modelo;
         let placa = req.body.placa;
         let cor = req.body.cor;
 
-        if (modelo && placa && cor) {
-            let carroCodigo = await CarroService.cadastrarCarro(modelo, placa, cor);
+        if (tipo && modelo && placa && cor ) {
+            let veiculoCodigo = await VeiculoService.cadastrarVeiculo(tipo, modelo, placa, cor);
             json.result = {
-                codigo: carroCodigo,
+                codigo: veiculoCodigo,
+                tipo,
                 modelo,
                 placa,
                 cor
@@ -59,21 +63,23 @@ module.exports = {
         res.json(json);
     },
 
-    alterarCarro: async (req, res) => {
+    alterarVeiculo: async (req, res) => {
 
         let json = { error: '', result: {} };
 
         let codigo = req.params.codigo;
+        let tipo = req.params.tipo;
         let modelo = req.body.modelo;
         let placa = req.body.placa;
         let cor = req.body.cor;
 
 
         if (codigo && modelo && placa && cor) {
-            await CarroService.alterarCarro(codigo, modelo, placa, cor);
+            await VeiculoService.alterarVeiculo(codigo, tipo, modelo, placa, cor);
 
             json.result = {
                 codigo,
+                tipo,
                 modelo,
                 placa,
                 cor
@@ -87,10 +93,10 @@ module.exports = {
     },
 
 
-    deletarCarro: async (req, res) => {
+    deletarVeiculo: async (req, res) => {
         let json = { error: '', result: {} };
 
-        await CarroService.deletarCarro(req.params.codigo);
+        await VeiculoService.deletarVeiculo(req.params.codigo);
 
         res.json(json)
     }

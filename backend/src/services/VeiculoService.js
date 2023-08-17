@@ -2,22 +2,22 @@ const db = require('../db');
 
 module.exports = {
 
-    buscarTodosCarros: () => {
+    buscarTodosVeiculos: () => {
 
         return new Promise((aceito, rejeitado) => {
 
-            db.query('SELECT * FROM carros', (error, results) => {
+            db.query('SELECT * FROM veiculos', (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito(results)
             });
         });
     },
 
-    buscarUmCarro: (codigo) => {
+    buscarUmVeiculo: (codigo) => {
 
         return new Promise((aceito, rejeitado) => {
 
-            db.query('SELECT * FROM carros WHERE codigo = ?', [codigo], (error, results) => {
+            db.query('SELECT * FROM veiculos WHERE codigo = ?', [codigo], (error, results) => {
 
                 if (error) { rejeitado(error); return; };
 
@@ -31,12 +31,12 @@ module.exports = {
         });
     },
 
-    cadastrarCarro: (modelo, placa, cor) => {
+    cadastrarVeiculo: (tipo, modelo, placa, cor) => {
 
         return new Promise((aceito, rejeitado) => {
 
-            db.query('INSERT INTO carros (modelo, placa, cor) VALUES (?, ?, ?)',
-                [modelo, placa, cor],
+            db.query('INSERT INTO veiculos (tipo, modelo, placa, cor) VALUES (?, ?, ?, ?)',
+                [tipo, modelo, placa, cor],
                 (error, results) => {
 
                     if (error) { rejeitado(error); return; };
@@ -47,12 +47,12 @@ module.exports = {
     },
 
 
-    alterarCarro: (codigo, modelo, placa, cor) => {
+    alterarVeiculo: (codigo, tipo, modelo, placa, cor) => {
 
         return new Promise((aceito, rejeitado) => {
 
-            db.query('UPDATE carros SET modelo = ?, placa = ?, cor = ? WHERE codigo = ?',
-                [modelo, placa, cor, codigo],
+            db.query('UPDATE veiculos SET tipo= ?, modelo = ?, placa = ?, cor = ? WHERE codigo = ?',
+                [tipo, modelo, placa, cor, codigo],
                 (error, results) => {
 
                     if (error) { rejeitado(error); return; };
@@ -62,11 +62,11 @@ module.exports = {
         });
     },
 
-    deletarCarro: (codigo) => {
+    deletarVeiculo: (codigo) => {
 
         return new Promise((aceito, rejeitado) => {
 
-            db.query('DELETE FROM carros WHERE codigo = ?', [codigo], (error, results) => {
+            db.query('DELETE FROM veiculos WHERE codigo = ?', [codigo], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito(results)
             });
