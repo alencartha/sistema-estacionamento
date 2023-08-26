@@ -1,4 +1,78 @@
 <mat-tab-group>
-    <mat-tab label="Cadastrar Veículo"> Cadastrar Veículo </mat-tab>
-    <mat-tab label="Editar Veículo"> Editar Veículo </mat-tab>
+    <mat-tab label="Cadastrar Veículo">
+
+        <form class="row" style="width: 100%; padding-top: 2rem;">
+
+            <div class="form-group col-6">Tipo:
+                <select class="form-select">
+                    <option value="null">- Selecione - </option>
+                    <option value="carro">Carro</option>
+                    <option value="motocicleta">Motocicleta</option>
+                </select>
+            </div>
+
+            <div class="form-group col-6">
+                <label for="modelo">Modelo:</label>
+                <input type="text" class="form-control" id="modelo">
+            </div>
+
+            <div class="form-group col-6">
+                <label for="placa">Placa:</label>
+                <input type="text" class="form-control" id="placa">
+            </div>
+
+            <div class="form-group col-6">
+                <label for="cor">Cor:</label>
+                <input type="text" class="form-control" id="cor">
+            </div>
+
+            <div class="col-12" style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                <button type="submit" class="btn btn-dark">Cadastrar</button>
+            </div>
+
+
+        </form>
+    </mat-tab>
+    <mat-tab label="Editar Veículo">
+        <form class="row" style="width: 100%; padding-top: 2rem;">
+
+            <div class="form-group col-12">Código do Veículo:
+                <select class="form-select">
+                    <option value="null">- Selecione - </option>
+                    <option value="carro">Carro</option>
+                    <option value="motocicleta">Motocicleta</option>
+                </select>
+            </div>
+
+
+            <div class="form-group col-6">Tipo:
+                <select class="form-select">
+                    <option value="null">- Selecione - </option>
+                    <option value="carro">Carro</option>
+                    <option value="motocicleta">Motocicleta</option>
+                </select>
+            </div>
+
+            <div class="form-group col-6">
+                <label for="modelo">Modelo:</label>
+                <input type="text" class="form-control" id="modelo">
+            </div>
+
+            <div class="form-group col-6">
+                <label for="placa">Placa:</label>
+                <input type="text" class="form-control" id="placa">
+            </div>
+
+            <div class="form-group col-6">
+                <label for="cor">Cor:</label>
+                <input type="text" class="form-control" id="cor">
+            </div>
+
+            <div class="col-12" style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                <button type="submit" class="btn btn-dark">Editar</button>
+            </div>
+
+
+        </form>
+    </mat-tab>
 </mat-tab-group>

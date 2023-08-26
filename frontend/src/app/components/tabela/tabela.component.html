@@ -17,10 +17,17 @@
             <td>{{veiculo.cor}}</td>
         </tr>
     </tbody>
+
+    <tbody *ngIf="veiculos.length == 0">
+        <tr>
+            <td colspan="5" style="text-align: center;"> Não há veículos para serem exibidos.</td>
+        </tr>
+    </tbody>
+
 </table>
 
 <div class="d-flex justify-content-end p-2">
     <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
-    (pageChange)="pageChange($event)">
+        (pageChange)="pageChange($event)">
     </ngb-pagination>
-</div> 
+</div>
