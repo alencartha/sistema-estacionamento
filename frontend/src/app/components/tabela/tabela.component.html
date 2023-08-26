@@ -1,0 +1,26 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Placa</th>
+            <th scope="col">Cor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let veiculo of veiculos">
+            <th scope="row">{{veiculo.codigo}}</th>
+            <td>{{veiculo.tipo}}</td>
+            <td>{{veiculo.modelo}}</td>
+            <td>{{veiculo.placa}}</td>
+            <td>{{veiculo.cor}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-end p-2">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+    (pageChange)="pageChange($event)">
+    </ngb-pagination>
+</div> 
