@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Deletar veículo</h1>
+<div mat-dialog-content>
+    Deseja deletar veículo {{data.codigo}} - {{data.modelo}}?
+</div>
+<div mat-dialog-actions style="display: flex; justify-content: center; margin-top: 1rem;">
+    <button class="btn btn-danger"  (click)="onNoClick()">Cancelar</button>
+    <button class="btn btn-dark" style="margin-left: 1rem;"  cdkFocusInitial (click)="onYesClick()">Confirmar</button>
+</div>

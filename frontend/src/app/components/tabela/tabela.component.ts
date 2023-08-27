@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Veiculo } from 'src/app/interfaces/veiculo';
 import { VeiculosService } from 'src/app/services/veiculos.service';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 
 
 
@@ -10,50 +12,68 @@ import { VeiculosService } from 'src/app/services/veiculos.service';
 	styleUrls: ['./tabela.component.css']
 })
 
-export class TabelaComponent implements OnInit {
+export class TabelaComponent implements OnInit, OnChanges {
 
-	
-	veiculos: Veiculo[] = [];
+	@Input() veiculos: Veiculo[] = [];
+
+
 	page = 1;
-    pageSize = 4;
-    collectionSize = 0; 
+	pageSize = 6;
 
-	constructor(private veiculosService: VeiculosService) {
+	constructor(public dialog: MatDialog) {
 
 	}
 
 	ngOnInit(): void {
-		this.buscarVeiculos()
+
 	}
 
 
+	ngOnChanges(changes: SimpleChanges): void {
 
-	buscarVeiculos() {
-		this.veiculosService.buscarVeiculos().subscribe({
-			next: (data: any) => {
-				this.veiculos = data.result;
-				this.collectionSize = this.veiculos.length;
-			},
-			error: (error: any) => {
-				console.error('Ocorreu um erro ao buscar os dados:', error);
-			}
-		});
+		if (changes['veiculos']) {
+			this.veiculos = changes['veiculos'].currentValue;
+
+			this.page = this.pageSize
+		}
+
+
 	}
-
-
-
 
 
 	//paginacao
 
-	 veiculosParaExibir(): Veiculo[] {
-        const startIndex = (this.page - 1) * this.pageSize;
-        return this.veiculos.slice(startIndex, startIndex + this.pageSize);
-    }
+	pageChange(newPage: number) {
+		this.page = newPage;
+	}
+
+	get collection(): number {
+		return this.veiculos.length;
+	}
+
+	get veiculosPaginados(): any[] {
+		const startIndex = (this.page - 1) * this.pageSize;
+		return this.veiculos.slice(startIndex, startIndex + this.pageSize);
+	}
 
 
-    pageChange(newPage: number) {
-        this.page = newPage;
-    }
+	//dialog exclusao
 
+	openDialog(veiculo: Veiculo) {
+		const dialogRef = this.dialog.open(DialogComponent, {
+			width: '400px',
+			height: '200px',
+			data: veiculo
+		  });
+	  
+		  dialogRef.afterClosed().subscribe(result => {
+			if (result === 'fechar') {
+			  console.log('Diálogo foi fechado');
+			} else if (result === 'confirmar') {
+			  console.log('Usuário confirmou');
+			} else {
+			  console.log('Resultado desconhecido:', result);
+			}
+		  });
+		}
 }

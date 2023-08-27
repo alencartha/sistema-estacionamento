@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -14,4 +14,17 @@ export class VeiculosService {
   buscarVeiculos(): Observable<any> {
     return this.http.get(`${this.url}/veiculos`);
   }
+
+  cadastrarVeiculo(veiculo: any): Observable<any> {
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const params = new URLSearchParams();
+    params.set('tipo', veiculo.tipo);
+    params.set('modelo', veiculo.modelo);
+    params.set('placa', veiculo.placa);
+    params.set('cor', veiculo.cor);
+
+    return this.http.post(`${this.url}/veiculo`, params.toString(), { headers });
+  }
+
 }

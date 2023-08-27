@@ -6,15 +6,17 @@
             <th scope="col">Modelo</th>
             <th scope="col">Placa</th>
             <th scope="col">Cor</th>
+            <th scope="col">Excluir</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let veiculo of veiculos">
+        <tr *ngFor="let veiculo of veiculosPaginados">
             <th scope="row">{{veiculo.codigo}}</th>
             <td>{{veiculo.tipo}}</td>
             <td>{{veiculo.modelo}}</td>
             <td>{{veiculo.placa}}</td>
             <td>{{veiculo.cor}}</td>
+            <td style="text-align: center;"> <mat-icon class="text-danger"  style="cursor: pointer;" (click)="openDialog(veiculo)">delete</mat-icon></td>
         </tr>
     </tbody>
 
@@ -27,7 +29,7 @@
 </table>
 
 <div class="d-flex justify-content-end p-2">
-    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+    <ngb-pagination [collectionSize]="collection" [(page)]="page" [pageSize]="pageSize"
         (pageChange)="pageChange($event)">
     </ngb-pagination>
 </div>
