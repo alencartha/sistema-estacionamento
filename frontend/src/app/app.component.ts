@@ -3,15 +3,6 @@ import { VeiculosService } from './services/veiculos.service';
 import { Veiculo } from './interfaces/veiculo';
 
 
-interface Carro {
-  codigo?: number;
-  modelo: string;
-  cor: string;
-  placa: string;
-}
-
-
-
 
 @Component({
   selector: 'app-root',
@@ -22,6 +13,7 @@ export class AppComponent implements OnInit {
 
   title = 'Sistema Estacionamento';
   veiculos: Veiculo[] = [];
+
 
 
 
@@ -38,6 +30,10 @@ export class AppComponent implements OnInit {
     }
   }
 
+  teste(n: any) {
+    console.log(n)
+  }
+
 
   buscarVeiculos() {
     this.veiculosService.buscarVeiculos().subscribe({
@@ -48,6 +44,27 @@ export class AppComponent implements OnInit {
         console.error('Ocorreu um erro ao buscar os dados:', error);
       }
     });
+  }
+
+
+  buscarVeiculo(codigo: string) {
+
+    if (codigo) {
+      this.veiculosService.buscarVeiculo(codigo).subscribe({
+        next: (data: any) => {
+          if (data.result) {
+            this.veiculos = [data.result];
+          } 
+
+        },
+        error: (error: any) => {
+          console.error('Ocorreu um erro ao buscar os dados:', error);
+        }
+      });
+    } else {
+      this.buscarVeiculos()
+    }
+
   }
 
 

@@ -9,7 +9,7 @@
             <th scope="col">Excluir</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="veiculos.length > 0 && veiculos[0]?.codigo ">
         <tr *ngFor="let veiculo of veiculosPaginados">
             <th scope="row">{{veiculo.codigo}}</th>
             <td>{{veiculo.tipo}}</td>
@@ -20,9 +20,9 @@
         </tr>
     </tbody>
 
-    <tbody *ngIf="veiculos.length == 0">
+    <tbody *ngIf="veiculos.length === 0 || !veiculos[0].codigo ">
         <tr>
-            <td colspan="5" style="text-align: center;"> Não há veículos para serem exibidos.</td>
+            <td colspan="6" style="text-align: center;"> Não há veículos para serem exibidos.</td>
         </tr>
     </tbody>
 

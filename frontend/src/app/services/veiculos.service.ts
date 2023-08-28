@@ -15,6 +15,10 @@ export class VeiculosService {
     return this.http.get(`${this.url}/veiculos`);
   }
 
+  buscarVeiculo(codigo: string): Observable<any> {
+    return this.http.get(`${this.url}/veiculo/${codigo}`);
+  }
+
   cadastrarVeiculo(veiculo: any): Observable<any> {
 
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

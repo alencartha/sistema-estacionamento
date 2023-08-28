@@ -5,9 +5,22 @@
   </div>
 </header>
 
+
 <main class="row" style="width: 100%; align-items: start;">
-  <app-cadastro-editar class="col-4"  style="border-right: 1px solid #ccc; padding-right: 15px;" [veiculos]="veiculos" (veiculoCadastradoAlterado)="veiculoCadastradoAlterado($event)"></app-cadastro-editar>
-  <app-tabela class="col-8" [veiculos]="veiculos"></app-tabela>
+
+
+  <app-cadastro-editar class="col-4" style="border-right: 1px solid #ccc; padding-right: 15px; height: 80vh;" [veiculos]="veiculos"
+    (veiculoCadastradoAlterado)="veiculoCadastradoAlterado($event)"></app-cadastro-editar>
+
+  <div class="col-8" style="height: 80vh;">
+    <div class="form-group col-12" style="display: flex; justify-content: flex-end; margin-bottom: 1rem; align-items: center;">
+      <mat-icon class="rotated-element ">search</mat-icon>
+      <input type="number" class="form-control" placeholder="Pesquisar por código..."
+        style="width: auto; margin-left: .5rem;" #codigoVeiculo (keyup)="buscarVeiculo(codigoVeiculo.value)">
+    </div>
+    <app-tabela  [veiculos]="veiculos"></app-tabela>
+  </div>
+
 </main>
 
 

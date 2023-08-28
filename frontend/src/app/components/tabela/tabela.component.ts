@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Veiculo } from 'src/app/interfaces/veiculo';
-import { VeiculosService } from 'src/app/services/veiculos.service';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 
 
@@ -18,7 +17,7 @@ export class TabelaComponent implements OnInit, OnChanges {
 
 
 	page = 1;
-	pageSize = 6;
+	pageSize = 4;
 
 	constructor(public dialog: MatDialog) {
 
@@ -34,7 +33,7 @@ export class TabelaComponent implements OnInit, OnChanges {
 		if (changes['veiculos']) {
 			this.veiculos = changes['veiculos'].currentValue;
 
-			this.page = this.pageSize
+			console.log(changes['veiculos'].currentValue)
 		}
 
 
