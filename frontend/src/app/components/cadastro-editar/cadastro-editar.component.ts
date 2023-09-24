@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Veiculo } from 'src/app/interfaces/veiculo';
 import { VeiculosService } from 'src/app/services/veiculos.service';
 import { PartialObserver, Subscribable } from 'rxjs';
@@ -9,12 +9,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './cadastro-editar.component.html',
   styleUrls: ['./cadastro-editar.component.css']
 })
-export class CadastroEditarComponent {
+export class CadastroEditarComponent implements OnInit, OnChanges {
 
   @Output() veiculoCadastradoAlterado = new EventEmitter<boolean>();
   @Input() veiculos: Veiculo[] = [];
+  @Input() ehPesquisaInput: boolean = false
+
   formularioCadastro: FormGroup;
- 
+  formularioEditar: FormGroup;
+
+  codigosVeiculos: Veiculo[] = []
+
 
   constructor(private veiculoService: VeiculosService, private formBuilder: FormBuilder) {
 
@@ -25,6 +30,31 @@ export class CadastroEditarComponent {
       cor: ['', Validators.required]
     });
 
+
+    this.formularioEditar = this.formBuilder.group({
+      codigo: [null, Validators.required],
+      tipo: [null, Validators.required],
+      modelo: ['', Validators.required],
+      placa: ['', Validators.required],
+      cor: ['', Validators.required]
+    });
+
+
+
+  }
+
+  ngOnInit(): void {
+    if (this.formularioEditar) {
+      this.formularioEditar.get('codigo')?.valueChanges.subscribe((novoValor) => {
+        this.buscarVeiculo(novoValor)
+      });
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['veiculos']?.currentValue && changes['ehPesquisaInput']?.currentValue == false) {
+      this.codigosVeiculos = changes['veiculos'].currentValue
+    }
   }
 
 
@@ -38,16 +68,36 @@ export class CadastroEditarComponent {
     };
 
     this.veiculoService.cadastrarVeiculo(veiculo)
-      .subscribe((response:any) => {
+      .subscribe((response: any) => {
 
-        if (response.result){
+        if (response.result) {
           this.veiculoCadastradoAlterado.emit(true)
           this.formularioCadastro.reset()
         }
-       
+
       }, error => {
         console.error('Error:', error);
       });
+  }
+
+  buscarVeiculo(codigo: string) {
+
+    if (codigo) {
+      this.veiculoService.buscarVeiculo(codigo).subscribe({
+        next: (data: any) => {
+          if (data.result) {
+            this.formularioEditar.get('tipo')?.setValue(data.result.tipo);
+            this.formularioEditar.get('modelo')?.setValue(data.result.modelo);
+            this.formularioEditar.get('placa')?.setValue(data.result.placa);
+            this.formularioEditar.get('cor')?.setValue(data.result.cor);
+          }
+
+        },
+        error: (error: any) => {
+          console.error('Ocorreu um erro ao buscar os dados:', error);
+        }
+      });
+    }
   }
 
 }

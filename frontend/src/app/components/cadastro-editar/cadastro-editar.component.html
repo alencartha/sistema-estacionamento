@@ -27,18 +27,19 @@
             </div>
 
             <div class="col-12" style="margin-top: 2rem; display: flex; justify-content: flex-end;">
-                <button type="button" class="btn btn-dark" (click)="cadastrarVeiculo(formularioCadastro.value)">Cadastrar</button>
+                <button type="button" class="btn btn-dark" (click)="cadastrarVeiculo(formularioCadastro.value)" [disabled]="!formularioCadastro.valid">Cadastrar</button>
             </div>
 
 
         </form>
     </mat-tab>
     <mat-tab label="Editar Veículo">
-        <form class="row" style="width: 100%; padding-top: 2rem;">
+        <form [formGroup]="formularioEditar" class="row" style="width: 100%; padding-top: 2rem;">
 
-            <div class="form-group col-12">Código do Veículo:
-                <select class="form-select">
-                    <option *ngFor="let veiculo of veiculos" [value]="veiculo.codigo">
+            <div class="form-group col-12">Código do Veículo: 
+                <select class="form-select" formControlName="codigo">
+                    <option value="null">- Selecione -</option>
+                    <option *ngFor="let veiculo of codigosVeiculos" [value]="veiculo.codigo">
                         {{veiculo.codigo}}
                     </option>
                 </select>
@@ -46,7 +47,7 @@
 
 
             <div class="form-group col-6">Tipo:
-                <select class="form-select">
+                <select class="form-select" formControlName="tipo">
                     <option value="null">- Selecione - </option>
                     <option value="carro">Carro</option>
                     <option value="motocicleta">Motocicleta</option>
@@ -55,21 +56,21 @@
 
             <div class="form-group col-6">
                 <label for="modelo">Modelo:</label>
-                <input type="text" class="form-control" id="modelo">
+                <input  type="text" class="form-control" id="modelo" formControlName="modelo">
             </div>
 
             <div class="form-group col-6">
                 <label for="placa">Placa:</label>
-                <input type="text" class="form-control" id="placa">
+                <input type="text" class="form-control" id="placa" formControlName="placa">
             </div>
 
             <div class="form-group col-6">
                 <label for="cor">Cor:</label>
-                <input type="text" class="form-control" id="cor">
+                <input type="text" class="form-control" id="cor" formControlName="cor">
             </div>
 
             <div class="col-12" style="margin-top: 2rem; display: flex; justify-content: flex-end;">
-                <button type="submit" class="btn btn-dark">Editar</button>
+                <button type="submit" class="btn btn-dark" [disabled]="!formularioEditar.valid">Editar</button>
             </div>
 
 

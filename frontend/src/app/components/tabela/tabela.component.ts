@@ -14,6 +14,7 @@ import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 export class TabelaComponent implements OnInit, OnChanges {
 
 	@Input() veiculos: Veiculo[] = [];
+	@Input() ehInclusaoVeiculo: boolean = false
 
 
 	page = 1;
@@ -33,7 +34,10 @@ export class TabelaComponent implements OnInit, OnChanges {
 		if (changes['veiculos']) {
 			this.veiculos = changes['veiculos'].currentValue;
 
-			console.log(changes['veiculos'].currentValue)
+		}
+
+		if (changes['ehInclusaoVeiculo'].currentValue == true) {
+			this.pageChange(this.getTotalPages())
 		}
 
 
@@ -55,6 +59,9 @@ export class TabelaComponent implements OnInit, OnChanges {
 		return this.veiculos.slice(startIndex, startIndex + this.pageSize);
 	}
 
+	getTotalPages(): number {
+		return Math.ceil(this.veiculos.length / this.pageSize);
+	}
 
 	//dialog exclusao
 
@@ -63,16 +70,16 @@ export class TabelaComponent implements OnInit, OnChanges {
 			width: '400px',
 			height: '200px',
 			data: veiculo
-		  });
-	  
-		  dialogRef.afterClosed().subscribe(result => {
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
 			if (result === 'fechar') {
-			  console.log('Diálogo foi fechado');
+				console.log('Diálogo foi fechado');
 			} else if (result === 'confirmar') {
-			  console.log('Usuário confirmou');
+				console.log('Usuário confirmou');
 			} else {
-			  console.log('Resultado desconhecido:', result);
+				console.log('Resultado desconhecido:', result);
 			}
-		  });
-		}
+		});
+	}
 }
