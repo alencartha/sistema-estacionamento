@@ -16,6 +16,7 @@ export class CadastroEditarComponent implements OnInit, OnChanges {
   @Output() veiculoAlterado = new EventEmitter<boolean>();
   
 
+  @Input() resetForm: boolean = false
   @Input() veiculos: Veiculo[] = [];
   @Input() ehPesquisaInput: boolean = false
 
@@ -58,6 +59,10 @@ export class CadastroEditarComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['veiculos']?.currentValue && changes['ehPesquisaInput']?.currentValue == false) {
       this.codigosVeiculos = changes['veiculos'].currentValue
+    }
+
+    if (changes['resetForm']?.currentValue == true) {
+      this.formularioEditar.reset()
     }
   }
 

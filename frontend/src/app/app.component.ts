@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   ehPesquisaInput: boolean = true
   inputModificado: boolean = false
   ehInclusaoVeiculo: boolean = false
+  resetForm: boolean = false
 
 
   constructor(private veiculosService: VeiculosService) {
@@ -43,6 +44,7 @@ export class AppComponent implements OnInit {
   veiculoDeletado(event: boolean) {
     if (event) {
       this.buscarVeiculos()
+      this.resetForm = true
       this.ehInclusaoVeiculo = false
       this.inputModificado = false
     }

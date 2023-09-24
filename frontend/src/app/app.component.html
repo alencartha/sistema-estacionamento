@@ -9,7 +9,7 @@
 <main class="row" style="width: 100%; align-items: start;">
 
 
-  <app-cadastro-editar class="col-4" style="border-right: 1px solid #ccc; padding-right: 15px; height: 80vh;" [ehPesquisaInput]="ehPesquisaInput" [veiculos]="veiculos"
+  <app-cadastro-editar class="col-4" style="border-right: 1px solid #ccc; padding-right: 15px; height: 80vh;" [resetForm]="resetForm" [ehPesquisaInput]="ehPesquisaInput" [veiculos]="veiculos"
     (veiculoCadastrado)="veiculoCadastrado($event)"  (veiculoAlterado)="veiculoAlterado($event)"></app-cadastro-editar>
 
   <div class="col-8" style="height: 80vh;">
