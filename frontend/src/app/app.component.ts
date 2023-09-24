@@ -25,12 +25,29 @@ export class AppComponent implements OnInit {
     this.buscarVeiculos()
   }
 
-  veiculoCadastradoAlterado(event: boolean) {
+  veiculoCadastrado(event: boolean) {
     if (event) {
       this.buscarVeiculos()
       this.ehInclusaoVeiculo = true
     }
   }
+
+  veiculoAlterado(event: boolean) {
+    if (event) {
+      this.buscarVeiculos()
+      this.ehInclusaoVeiculo = false
+      this.inputModificado = true
+    }
+  }
+
+  veiculoDeletado(event: boolean) {
+    if (event) {
+      this.buscarVeiculos()
+      this.ehInclusaoVeiculo = false
+      this.inputModificado = false
+    }
+  }
+
 
 
 

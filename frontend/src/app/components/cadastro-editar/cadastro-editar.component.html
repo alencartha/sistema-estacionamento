@@ -70,7 +70,7 @@
             </div>
 
             <div class="col-12" style="margin-top: 2rem; display: flex; justify-content: flex-end;">
-                <button type="submit" class="btn btn-dark" [disabled]="!formularioEditar.valid">Editar</button>
+                <button type="button" (click)="editarVeiculo(formularioEditar.value)"class="btn btn-dark" [disabled]="!formularioEditar.valid">Editar</button>
             </div>
 
 

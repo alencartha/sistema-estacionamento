@@ -11,7 +11,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CadastroEditarComponent implements OnInit, OnChanges {
 
-  @Output() veiculoCadastradoAlterado = new EventEmitter<boolean>();
+  @Output() veiculoCadastrado = new EventEmitter<boolean>();
+
+  @Output() veiculoAlterado = new EventEmitter<boolean>();
+  
+
   @Input() veiculos: Veiculo[] = [];
   @Input() ehPesquisaInput: boolean = false
 
@@ -71,7 +75,7 @@ export class CadastroEditarComponent implements OnInit, OnChanges {
       .subscribe((response: any) => {
 
         if (response.result) {
-          this.veiculoCadastradoAlterado.emit(true)
+          this.veiculoCadastrado.emit(true)
           this.formularioCadastro.reset()
         }
 
@@ -99,5 +103,28 @@ export class CadastroEditarComponent implements OnInit, OnChanges {
       });
     }
   }
+
+
+  editarVeiculo(form: any) {
+
+    const veiculo = {
+      codigo: form.codigo,
+      tipo: form.tipo,
+      modelo: form.modelo,
+      placa: form.placa,
+      cor: form.cor
+    };
+
+    this.veiculoService.editarVeiculo(veiculo)
+      .subscribe((response: any) => {
+        if (response.result) {
+          this.veiculoAlterado.emit(true)
+        }
+
+      }, error => {
+        console.error('Error:', error);
+      });
+  }
+
 
 }

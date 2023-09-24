@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, OnInit, SimpleChanges, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Veiculo } from 'src/app/interfaces/veiculo';
+import { VeiculosService } from 'src/app/services/veiculos.service';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 
 
@@ -16,11 +17,13 @@ export class TabelaComponent implements OnInit, OnChanges {
 	@Input() veiculos: Veiculo[] = [];
 	@Input() ehInclusaoVeiculo: boolean = false
 
+	@Output() veiculoDeletado = new EventEmitter<boolean>();
+
 
 	page = 1;
 	pageSize = 4;
 
-	constructor(public dialog: MatDialog) {
+	constructor(public dialog: MatDialog, private veiculoService: VeiculosService) {
 
 	}
 
@@ -36,7 +39,7 @@ export class TabelaComponent implements OnInit, OnChanges {
 
 		}
 
-		if (changes['ehInclusaoVeiculo'].currentValue == true) {
+		if (changes['ehInclusaoVeiculo']?.currentValue == true) {
 			this.pageChange(this.getTotalPages())
 		}
 
@@ -76,10 +79,28 @@ export class TabelaComponent implements OnInit, OnChanges {
 			if (result === 'fechar') {
 				console.log('Diálogo foi fechado');
 			} else if (result === 'confirmar') {
-				console.log('Usuário confirmou');
+				this.deletarVeiculo(veiculo.codigo)
 			} else {
 				console.log('Resultado desconhecido:', result);
 			}
 		});
 	}
+
+
+	deletarVeiculo(codigo: any) {
+
+		this.veiculoService.deletarVeiculo(codigo).subscribe({
+			next: (data: any) => {
+				if (data.result) {
+					this.veiculoDeletado.emit(true)
+				}
+
+			},
+			error: (error: any) => {
+				console.error('Ocorreu um erro ao deletar os dados:', error);
+			}
+		});
+	}
+
+
 }

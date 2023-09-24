@@ -68,7 +68,7 @@ module.exports = {
         let json = { error: '', result: {} };
 
         let codigo = req.params.codigo;
-        let tipo = req.params.tipo;
+        let tipo = req.body.tipo;
         let modelo = req.body.modelo;
         let placa = req.body.placa;
         let cor = req.body.cor;
