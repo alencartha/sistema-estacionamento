@@ -6,7 +6,7 @@ Sistema de controle para um estacionamento, no qual deve permitir inserir dados 
 
 ### Diagrama de Classes UML
 
-![Diagrama de Classes UML](https://github.com/alencartha/sistema-estacionamento/blob/main/frontend/src/assets/DiagramaDeClasses.png)
+![Diagrama de Classes UML](https://github.com/alencartha/sistema-estacionamento/blob/main/frontend/src/assets/diagramaClasses.png)
 
 ### Diagrama de Casos de Uso UML
 
